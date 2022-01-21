@@ -1,10 +1,4 @@
 // eslint-disable-next-line no-unused-vars
-function main() {
-  console.log("Welcome to RPS-JS!");
-  game();
-  console.log("Goodbye!");
-}
-
 function game () {
   for (let i = 0; i < 5; i++) {
     const computerSelection = computerPlay();
@@ -14,6 +8,20 @@ function game () {
     }
     playRound(playerSelection, computerSelection);
   };
+};
+
+const buttons = document.querySelectorAll(".button");
+
+buttons.forEach(btn => btn.addEventListener("click", playClick));
+
+function playClick(e) {
+  const computerSelection = computerPlay();
+  const playerSelection = e.target.id;
+
+  const result = playRound(playerSelection, computerSelection);
+
+  const foot = document.querySelector("#foot");
+  foot.textContent = result;
 };
 
 function computerPlay() {
@@ -44,11 +52,9 @@ function playRound(playerSelection, computerSelection) {
   const [result, winner, loser] = getResult(playerSelection, computerSelection);
   switch (result) {
     case "tie":
-      console.log(`You ${result}. Both played ${playerSelection}.`);
-      break;
+      return `You ${result}. Both played ${playerSelection}.`
     default:
-      console.log(`You ${result}! ${capitalize(winner)} beats ${loser}.`);
-      break;
+      return `You ${result}! ${capitalize(winner)} beats ${loser}.`;
   }
 };
 
